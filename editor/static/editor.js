@@ -56,6 +56,8 @@ document.documentElement.addEventListener('keyup', (e) => {
 
 });
 
+document.documentElement.querySelector("#editor-save-changes").addEventListener("click", () => {session.sendChanges()})
+
 
 setupBuildBlocks();
 buildTree();

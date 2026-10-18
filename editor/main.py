@@ -321,6 +321,21 @@ def logout():
 
 
 
+@app.post("/edit/<page>/save-changes")
+def save_changes(page):
+    print("Saving changes...")
+    print(page)
+    print(request)
+    print(request.json)
+
+    data = {c["cname"]:json.loads(c["cjson"]) for c in request.json}
+    print(json.dumps(data, indent=4))
+
+    return "", 200
+
+
+
+
 
 
 

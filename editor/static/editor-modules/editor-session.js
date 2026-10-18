@@ -172,6 +172,30 @@ export class Change {
         console.log(`Current i=${this.i} (n=${this.n})`)
     }
 
+    async sendChanges(){
+        console.log(location.href);
+        let url = new URL(location.href);
+        console.log(url);
+        console.log(this.changes);
+        let body = [];
+        Object.entries(this.changes).forEach((c) => {
+            console.log(c);
+            let cname = c[0];
+            let cjson = c[1].json();
+            console.log({cname, cjson})
+            body.push({cname, cjson})
+        });
+        console.log(body);
+
+        let resp = await fetch(url.pathname+"/save-changes", {
+            "method":"POST",
+            "headers": {"Content-Type": "application/json"},
+            "body": JSON.stringify(body)
+        })
+        console.log({resp})
+        console.log(resp.status)
+    }
+
     revertTo(targetI){
         console.warn("Reverting to", targetI)
         this.revertingTo = targetI;
@@ -275,5 +299,8 @@ export class Change {
 function storeData(key, value){
     sessionStorage.setItem(key, value);
 }
+
+
+
 
 
